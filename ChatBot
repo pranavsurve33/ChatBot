@@ -1,0 +1,1104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>CodePen - Emotional Chatbot</title>
+
+  <link rel="stylesheet" media="screen" href="https://cpwebassets.codepen.io/assets/fullpage/fullpage-a7751fce9f8bdda3329296b44cd901f541bfaa7c5417190fba49dc1cf6fd799f.css" />
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+
+
+  <title>CodePen - Emotional Chatbot</title>
+
+  <style>
+    html { font-size: 15px; }
+    html, body { margin: 0; padding: 0; min-height: 100%; }
+    body { height:100%; display: flex; flex-direction: column; }
+    .referer-warning {
+      background: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      padding: 0.75em;
+      color: white;
+      text-align: center;
+      font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, system-ui, Sans-Serif;
+      line-height: 1.2;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .referer-warning span { font-family: initial; }
+    .referer-warning h1 { font-size: 1.2rem; margin: 0; }
+    .referer-warning a { color: #56bcf9; }
+  </style>
+</head>
+
+
+
+  <div id="result-iframe-wrap" role="main">
+    <iframe
+      id="result"
+      srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot; >
+
+<head>
+  <meta charset=&quot;UTF-8&quot;>
+  
+
+    <link rel=&quot;apple-touch-icon&quot; type=&quot;image/png&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png&quot; />
+
+    <meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;CodePen&quot;>
+
+    <link rel=&quot;shortcut icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico&quot; />
+
+    <link rel=&quot;mask-icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg&quot; color=&quot;#111&quot; />
+
+
+
+  
+    <script src=&quot;https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js&quot;></script>
+
+
+  <title>CodePen - Emotional Chatbot</title>
+
+    <link rel=&quot;canonical&quot; href=&quot;https://codepen.io/Hyperplexed/pen/QOeQNK&quot;>
+  <link href=&quot;https://fonts.googleapis.com/css?family=Roboto:100,300,400&quot; rel=&quot;stylesheet&quot;>
+  
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css'>
+  
+<style>
+html, body {
+  font-family: &quot;Roboto&quot;, sans-serif;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+  width: 100%;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.scroll-bar::-webkit-scrollbar {
+  background-color: #c8c8c8;
+  width: 2px;
+}
+.scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #5a5a5a;
+}
+
+#chat-wrapper {
+  background-color: white;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+#chat-wrapper #chat-bot-mood {
+  left: 0px;
+  padding: 20px;
+  position: absolute;
+  top: 0px;
+  white-space: nowrap;
+  z-index: 10;
+}
+#chat-wrapper #chat-bot-mood.friendly #chat-bot-mood-icon {
+  background: linear-gradient(to right, #03a9f4, #4caf50);
+}
+#chat-wrapper #chat-bot-mood.friendly #chat-bot-mood-label #chat-bot-mood-value {
+  color: #03a9f4;
+}
+#chat-wrapper #chat-bot-mood.suspicious #chat-bot-mood-icon {
+  background: linear-gradient(to right, #d32f2f, #ff6f00);
+}
+#chat-wrapper #chat-bot-mood.suspicious #chat-bot-mood-label #chat-bot-mood-value {
+  color: #d32f2f;
+}
+#chat-wrapper #chat-bot-mood.boastful #chat-bot-mood-icon {
+  background: linear-gradient(to right, #ff6f00, #fbc02d);
+}
+#chat-wrapper #chat-bot-mood.boastful #chat-bot-mood-label #chat-bot-mood-value {
+  color: #ff6f00;
+}
+#chat-wrapper #chat-bot-mood #chat-bot-mood-icon {
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  display: inline-block;
+  height: 30px;
+  margin-left: 10px;
+  vertical-align: top;
+  width: 30px;
+}
+#chat-wrapper #chat-bot-mood #chat-bot-mood-label {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  display: inline-block;
+  height: 20px;
+  margin-left: 5px;
+  padding: 5px 15px;
+  vertical-align: top;
+}
+#chat-wrapper #chat-bot-mood #chat-bot-mood-label h1 {
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: 300;
+  height: 20px;
+  line-height: 20px;
+  margin: 0px;
+  vertical-align: top;
+}
+#chat-wrapper #chat-bot-mood #chat-bot-mood-label #chat-bot-mood-text {
+  color: #3c3c3c;
+}
+#chat-wrapper #letter-pool, #chat-wrapper #temp-letter-pool {
+  backface-visibility: hidden;
+  height: 100%;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  user-select: none;
+  width: 100%;
+  z-index: 1;
+}
+#chat-wrapper #letter-pool .pool-letter, #chat-wrapper #letter-pool .temp-letter, #chat-wrapper #temp-letter-pool .pool-letter, #chat-wrapper #temp-letter-pool .temp-letter {
+  color: #d2d2d2;
+  display: inline-block;
+  font-weight: 300;
+  position: absolute;
+}
+#chat-wrapper #letter-overlay {
+  height: 100%;
+  left: 0px;
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 5;
+}
+#chat-wrapper #letter-overlay .overlay-letter {
+  color: #d2d2d2;
+  font-weight: 300;
+  position: absolute;
+  transition: all 1.5s, opacity 0.5s;
+  transition-timing-function: ease-in-out;
+}
+#chat-wrapper #letter-overlay .overlay-letter.in-flight {
+  animation: pulse-letter 1s ease-in-out;
+  color: #d2d2d2;
+}
+#chat-wrapper #chat-message-window {
+  height: 100%;
+  left: 0px;
+  min-width: 600px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper {
+  bottom: 0px;
+  height: 90px;
+  left: 0px;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border-radius: 100px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  width: 500px;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input.send-enabled #send-message-button:before, #chat-wrapper #chat-message-window #message-input-wrapper #message-input.send-enabled #send-message-button:after {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  animation: pulse 2s ease-in-out infinite;
+  border-radius: 100px;
+  content: &quot;&quot;;
+  height: 30px;
+  width: 30px;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input.send-enabled #send-message-button i {
+  color: #03a9f4;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input #message-input-field {
+  border: none;
+  color: #b4b4b4;
+  font-size: 1em;
+  font-weight: 300;
+  margin-left: 20px;
+  outline: none;
+  width: 430px;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input #message-input-field::placeholder {
+  color: #b4b4b4;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input #send-message-button {
+  cursor: pointer;
+  height: 50px;
+  position: absolute;
+  right: 0px;
+  text-align: center;
+  top: 0px;
+  width: 50px;
+}
+#chat-wrapper #chat-message-window #message-input-wrapper #message-input #send-message-button i {
+  color: #e6e6e6;
+  height: 50px;
+  line-height: 50px;
+  font-size: 2em;
+  transition: all 0.5s;
+  width: 50px;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper {
+  bottom: 0px;
+  height: 100%;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column {
+  bottom: 0px;
+  left: 0px;
+  min-height: 70px;
+  margin-bottom: 70px;
+  overflow: hidden;
+  padding: 20px 20px 0px 20px;
+  width: calc(100% - 40px);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column.static {
+  position: absolute;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message {
+  animation: expand 0.5s ease-in-out;
+  margin-bottom: 20px;
+  white-space: nowrap;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received {
+  text-align: left;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received.friendly .profile-icon {
+  background: linear-gradient(to right, #03a9f4, #4caf50);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received.suspicious .profile-icon {
+  background: linear-gradient(to right, #d32f2f, #ff6f00);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received.boastful .profile-icon {
+  background: linear-gradient(to right, #ff6f00, #fbc02d);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received .profile-icon i {
+  font-size: 1.5em;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received .profile-icon i:before {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.received .content {
+  animation: bounceInLeft 1s ease-in-out;
+  animation-delay: 0.5s;
+  margin-left: 20px;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.sent {
+  text-align: right;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.sent .profile-icon {
+  background: linear-gradient(to right, #ab47bc, #03a9f4);
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.sent .profile-icon i {
+  font-size: 1.25em;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message.sent .content {
+  animation: bounceInRight 1s ease-in-out;
+  animation-delay: 0.5s;
+  margin-right: 20px;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message .profile-icon {
+  animation: bounceIn 1s ease-in-out;
+  animation-delay: 0.25s;
+  border-radius: 100px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  display: inline-block;
+  height: 50px;
+  position: relative;
+  vertical-align: top;
+  width: 50px;
+  z-index: 2;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message .profile-icon i {
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 50px;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message .content {
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  display: inline-block;
+  max-width: 300px;
+  padding: 15px 20px;
+  position: relative;
+  text-align: left;
+  transition: all 0.5s;
+  vertical-align: top;
+  white-space: normal;
+  z-index: 1;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message .content .text {
+  color: #b4b4b4;
+  font-size: 1em;
+  font-weight: 300;
+  margin: 0px;
+  min-height: 20px;
+  transition: all 0.5s;
+  word-wrap: break-word;
+}
+#chat-wrapper #chat-message-window #chat-message-column-wrapper #chat-message-column .message .content .text span {
+  height: 20px;
+}
+
+@keyframes flash-dot {
+  from, to {
+    background-color: #c8c8c8;
+  }
+  50% {
+    background-color: rgba(200, 200, 200, 0.5);
+  }
+}
+@keyframes expand {
+  from {
+    max-height: 0px;
+  }
+  to {
+    max-height: 200px;
+  }
+}
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes bounceInUp {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 3000px, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -20px, 0);
+  }
+  75% {
+    transform: translate3d(0, 10px, 0);
+  }
+  90% {
+    transform: translate3d(0, -5px, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes bounceInLeft {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: translate3d(-3000px, 0, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(25px, 0, 0);
+  }
+  75% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  90% {
+    transform: translate3d(5px, 0, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes bounceInRight {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  from {
+    opacity: 0;
+    transform: translate3d(3000px, 0, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(-25px, 0, 0);
+  }
+  75% {
+    transform: translate3d(10px, 0, 0);
+  }
+  90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes bounceOutRight {
+  20% {
+    opacity: 1;
+    transform: translate3d(-20px, 0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(2000px, 0, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 0px 0px rgba(3, 169, 244, 0.5);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 20px rgba(3, 169, 244, 0);
+  }
+}
+@keyframes pulse-letter {
+  from, to {
+    color: #d2d2d2;
+  }
+  50% {
+    color: #03a9f4;
+  }
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate=&quot;no&quot;>
+  <div id=&quot;chat-wrapper&quot;>
+  <div id=&quot;chat-bot-mood&quot;>
+    <div id=&quot;chat-bot-mood-icon&quot;></div>
+    <div id=&quot;chat-bot-mood-label&quot;>
+      <h1 id=&quot;chat-bot-mood-text&quot;>Chatbot is feeling</h1>
+      <h1 id=&quot;chat-bot-mood-value&quot;>Mood</h1>
+    </div>
+  </div>
+  <div id=&quot;letter-pool&quot;></div>
+  <div id=&quot;temp-letter-pool&quot;></div>
+  <div id=&quot;letter-overlay&quot;></div>
+  <div id=&quot;chat-message-window&quot;>
+    <div id=&quot;message-input-wrapper&quot;>
+      <div id=&quot;message-input&quot;>
+        <input id=&quot;message-input-field&quot; type=&quot;text&quot; placeholder=&quot;Type a message&quot; maxlength=&quot;100&quot;/>
+        <div id=&quot;send-message-button&quot;><i class=&quot;far fa-arrow-alt-circle-right&quot;></i></div>
+      </div>
+    </div>
+    <div class=&quot;scroll-bar&quot; id=&quot;chat-message-column-wrapper&quot;>
+      <div class=&quot;static&quot; id=&quot;chat-message-column&quot;></div>
+    </div>
+  </div>
+</div>
+  <script src='https://codepen.io/Hyperplexed/pen/QOvrzd/0299c8b36352c72cbfe8df48b47b54ca.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+      <script id=&quot;rendered-js&quot; >
+const LETTER_POOL = getEl('letter-pool'),
+TEMP_LETTER_POOL = getEl('temp-letter-pool'),
+LETTER_OVERLAY = getEl('letter-overlay'),
+CHAT_MESSAGE_COLUMN_WRAPPER = getEl('chat-message-column-wrapper'),
+CHAT_MESSAGE_COLUMN = getEl('chat-message-column'),
+MESSAGE_INPUT = getEl('message-input'),
+MESSAGE_INPUT_FIELD = getEl('message-input-field'),
+CHAT_BOT_MOOD = getEl('chat-bot-mood'),
+CHAT_BOT_MOOD_VALUE = getEl('chat-bot-mood-value');
+
+const STATE = {
+  isUserSendingMessage: false,
+  isChatBotSendingMessage: false,
+  letterPool: {
+    transitionPeriod: 30000,
+    intervals: [] },
+
+  moods: ['friendly', 'suspicious', 'boastful'],
+  currentMood: '',
+  chatbotMessageIndex: 0,
+  nLetterSets: 4 };
+
+
+const getRandMood = () => {
+  const rand = getRand(1, 3);
+  return STATE.moods[rand - 1];
+};
+
+const setChatbotMood = () => {
+  STATE.currentMood = getRandMood();
+  for (let i = 0; i < STATE.moods.length; i++) {
+    removeClass(CHAT_BOT_MOOD, STATE.moods[i]);
+  }
+  addClass(CHAT_BOT_MOOD, STATE.currentMood);
+  CHAT_BOT_MOOD_VALUE.innerHTML = STATE.currentMood;
+};
+
+const getRandGreeting = () => {
+  let rand = 0;
+  switch (STATE.currentMood) {
+    case 'friendly':
+      rand = getRand(1, greetings.friendly.length);
+      return greetings.friendly[rand - 1];
+    case 'suspicious':
+      rand = getRand(1, greetings.suspicious.length);
+      return greetings.suspicious[rand - 1];
+    case 'boastful':
+      rand = getRand(1, greetings.boastful.length);
+      return greetings.boastful[rand - 1];
+    default:
+      break;}
+
+};
+
+const getRandConvo = () => {
+  let rand = 0;
+  switch (STATE.currentMood) {
+    case 'friendly':
+      rand = getRand(1, convo.friendly.length);
+      return convo.friendly[rand - 1];
+    case 'suspicious':
+      rand = getRand(1, convo.suspicious.length);
+      return convo.suspicious[rand - 1];
+    case 'boastful':
+      rand = getRand(1, convo.boastful.length);
+      return convo.boastful[rand - 1];
+    default:
+      break;}
+
+};
+
+const createLetter = (cName, val) => {
+  const letter = document.createElement('div');
+  addClass(letter, cName);
+  setAttr(letter, 'data-letter', val);
+  letter.innerHTML = val;
+  return letter;
+};
+
+const getAlphabet = isUpperCase => {
+  let letters = [];
+  for (let i = 65; i <= 90; i++) {
+    let val = String.fromCharCode(i),
+    letter = null;
+    if (!isUpperCase) val = val.toLowerCase();
+    letter = createLetter('pool-letter', val);
+    letters.push(letter);
+  }
+  return letters;
+};
+
+const startNewLetterPath = (letter, nextRand, interval) => {
+  clearInterval(interval);
+  nextRand = getRandExcept(1, 4, nextRand);
+  let nextPos = getRandPosOffScreen(nextRand),
+  transitionPeriod = STATE.letterPool.transitionPeriod,
+  delay = getRand(0, STATE.letterPool.transitionPeriod),
+  transition = `left ${transitionPeriod}ms linear ${delay}ms, top ${transitionPeriod}ms linear ${delay}ms, opacity 0.5s`;
+  setElPos(letter, nextPos.x, nextPos.y);
+  setStyle(letter, 'transition', transition);
+  interval = setInterval(() => {
+    startNewLetterPath(letter, nextRand, interval);
+  }, STATE.letterPool.transitionPeriod + delay);
+  STATE.letterPool.intervals.push(interval);
+};
+
+const setRandLetterPaths = letters => {
+  for (let i = 0; i < letters.length; i++) {
+    let letter = letters[i],
+    startRand = getRand(1, 4),
+    nextRand = getRandExcept(1, 4, startRand),
+    startPos = getRandPosOffScreen(startRand),
+    nextPos = getRandPosOffScreen(nextRand),
+    transitionPeriod = STATE.letterPool.transitionPeriod,
+    delay = getRand(0, STATE.letterPool.transitionPeriod) * -1,
+    transition = `left ${transitionPeriod}ms linear ${delay}ms, top ${transitionPeriod}ms linear ${delay}ms, opacity 0.5s`;
+
+    setElPos(letter, startPos.x, startPos.y);
+    setStyle(letter, 'transition', transition);
+    addClass(letter, 'invisible');
+    LETTER_POOL.appendChild(letter);
+    setTimeout(() => {
+      setElPos(letter, nextPos.x, nextPos.y);
+      removeClass(letter, 'invisible');
+      let interval = setInterval(() => {
+        startNewLetterPath(letter, nextRand, interval);
+      }, STATE.letterPool.transitionPeriod + delay);
+    }, 1);
+  }
+};
+
+const fillLetterPool = (nSets = 1) => {
+  for (let i = 0; i < nSets; i++) {
+    const lCaseLetters = getAlphabet(false),
+    uCaseLetters = getAlphabet(true);
+    setRandLetterPaths(lCaseLetters);
+    setRandLetterPaths(uCaseLetters);
+  }
+};
+
+const findMissingLetters = (letters, lCount, isUpperCase) => {
+  let missingLetters = [];
+  for (let i = 65; i <= 90; i++) {
+    let val = isUpperCase ? String.fromCharCode(i) : String.fromCharCode(i).toLowerCase(),
+    nLetter = letters.filter(letter => letter === val).length;
+    if (nLetter < lCount) {
+      let j = nLetter;
+      while (j < lCount) {
+        missingLetters.push(val);
+        j++;
+      }
+    }
+  }
+  return missingLetters;
+};
+
+const replenishLetterPool = (nSets = 1) => {
+  const poolLetters = LETTER_POOL.childNodes;
+  let charInd = 65,
+  currentLetters = [],
+  missingLetters = [],
+  lettersToAdd = [];
+
+  for (let i = 0; i < poolLetters.length; i++) {
+    currentLetters.push(poolLetters[i].dataset.letter);
+  }
+  missingLetters = [...missingLetters, ...findMissingLetters(currentLetters, nSets, false)];
+  missingLetters = [...missingLetters, ...findMissingLetters(currentLetters, nSets, true)];
+  for (let i = 0; i < missingLetters.length; i++) {
+    const val = missingLetters[i];
+    lettersToAdd.push(createLetter('pool-letter', val));
+  }
+  setRandLetterPaths(lettersToAdd);
+};
+
+const clearLetterPool = () => {
+  removeAllChildren(LETTER_POOL);
+};
+
+const scrollToBottomOfMessages = () => {
+  CHAT_MESSAGE_COLUMN_WRAPPER.scrollTop = CHAT_MESSAGE_COLUMN_WRAPPER.scrollHeight;
+};
+
+const checkMessageColumnHeight = () => {
+  if (CHAT_MESSAGE_COLUMN.clientHeight >= window.innerHeight) {
+    removeClass(CHAT_MESSAGE_COLUMN, 'static');
+  } else
+  {
+    addClass(CHAT_MESSAGE_COLUMN, 'static');
+  }
+};
+
+const appendContentText = (contentText, text) => {
+  for (let i = 0; i < text.length; i++) {
+    const letter = document.createElement('span');
+    letter.innerHTML = text[i];
+    setAttr(letter, 'data-letter', text[i]);
+    contentText.appendChild(letter);
+  }
+};
+
+const createChatMessage = (text, isReceived) => {
+  let message = document.createElement('div'),
+  profileIcon = document.createElement('div'),
+  icon = document.createElement('i'),
+  content = document.createElement('div'),
+  contentText = document.createElement('h1'),
+  direction = isReceived ? 'received' : 'sent';
+
+  addClass(content, 'content');
+  addClass(content, 'invisible');
+  addClass(contentText, 'text');
+  addClass(contentText, 'invisible');
+  appendContentText(contentText, text);
+  content.appendChild(contentText);
+
+  addClass(profileIcon, 'profile-icon');
+  addClass(profileIcon, 'invisible');
+  profileIcon.appendChild(icon);
+
+  addClass(message, 'message');
+  addClass(message, direction);
+
+  if (isReceived) {
+    addClass(icon, 'fab');
+    addClass(icon, 'fa-cloudsmith');
+    addClass(message, STATE.currentMood);
+    message.appendChild(profileIcon);
+    message.appendChild(content);
+  } else
+  {
+    addClass(icon, 'far');
+    addClass(icon, 'fa-user');
+    message.appendChild(content);
+    message.appendChild(profileIcon);
+  }
+
+  return message;
+};
+
+const findLetterInPool = targetLetter => {
+  let letters = LETTER_POOL.childNodes,
+  foundLetter = null;
+  for (let i = 0; i < letters.length; i++) {
+    const nextLetter = letters[i];
+    if (nextLetter.dataset.letter === targetLetter &amp;&amp; !nextLetter.dataset.found) {
+      foundLetter = letters[i];
+      setAttr(foundLetter, 'data-found', true);
+      break;
+    }
+  }
+  return foundLetter;
+};
+
+const createOverlayLetter = val => {
+  const overlayLetter = document.createElement('span');
+  addClass(overlayLetter, 'overlay-letter');
+  addClass(overlayLetter, 'in-flight');
+  overlayLetter.innerHTML = val;
+  return overlayLetter;
+};
+
+const removePoolLetter = letter => {
+  addClass(letter, 'invisible');
+  setTimeout(() => {
+    removeChild(LETTER_POOL, letter);
+  }, 500);
+};
+
+const setElPosFromRight = (el, x, y) => {
+  setStyle(el, 'right', x + 'px');
+  setStyle(el, 'top', y + 'px');
+};
+
+const animateOverlayLetter = (letter, contentText, finalPos, isReceived) => {
+  removePoolLetter(letter);
+  const initPos = letter.getBoundingClientRect(),
+  overlayLetter = createOverlayLetter(letter.dataset.letter);
+  if (isReceived) {
+    setElPos(overlayLetter, initPos.left, initPos.top);
+  } else
+  {
+    setElPosFromRight(overlayLetter, window.innerWidth - initPos.right, initPos.top);
+  }
+  LETTER_OVERLAY.appendChild(overlayLetter);
+  setTimeout(() => {
+    if (isReceived) {
+      setElPos(overlayLetter, finalPos.left, finalPos.top);
+    } else
+    {
+      setElPosFromRight(overlayLetter, window.innerWidth - finalPos.right, finalPos.top);
+    }
+    setTimeout(() => {//asdf
+      removeClass(contentText, 'invisible');
+      addClass(overlayLetter, 'invisible');
+      setTimeout(() => {
+        removeChild(LETTER_OVERLAY, overlayLetter);
+      }, 1000);
+    }, 1500);
+  }, 100);
+};
+
+const animateMessageLetters = (message, isReceived) => {
+  const content = message.getElementsByClassName('content')[0],
+  contentText = content.getElementsByClassName('text')[0],
+  letters = contentText.childNodes,
+  textPos = contentText.getBoundingClientRect();
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters[i],
+    targetLetter = findLetterInPool(letter.dataset.letter),
+    finalPos = letter.getBoundingClientRect();
+    if (targetLetter) {
+      animateOverlayLetter(targetLetter, contentText, finalPos, isReceived);
+    } else
+    {
+      const tempLetter = createLetter('temp-letter', letter.dataset.letter),
+      pos = getRandPosOffScreen();
+      addClass(tempLetter, 'invisible');
+      setElPos(tempLetter, pos.x, pos.y);
+      TEMP_LETTER_POOL.appendChild(tempLetter);
+      animateOverlayLetter(tempLetter, contentText, finalPos, isReceived);
+      setTimeout(() => {
+        removeChild(TEMP_LETTER_POOL, tempLetter);
+      }, 100);
+    }
+  }
+};
+
+const addChatMessage = (text, isReceived) => {
+  const message = createChatMessage(text, isReceived),
+  content = message.getElementsByClassName('content')[0],
+  contentText = content.getElementsByClassName('text')[0],
+  profileIcon = message.getElementsByClassName('profile-icon')[0];
+  CHAT_MESSAGE_COLUMN.appendChild(message);
+  toggleInput();
+  setTimeout(() => {
+    removeClass(profileIcon, 'invisible');
+    setTimeout(() => {
+      removeClass(content, 'invisible');
+      setTimeout(() => {
+        animateMessageLetters(message, isReceived);
+        setTimeout(() => replenishLetterPool(STATE.nLetterSets), 2500);
+      }, 1000);
+    }, 250);
+  }, 250);
+};
+
+const checkIfInputFieldHasVal = () => MESSAGE_INPUT_FIELD.value.length > 0;
+
+const clearInputField = () => {
+  MESSAGE_INPUT_FIELD.value = '';
+};
+
+const disableInputField = () => {
+  MESSAGE_INPUT_FIELD.blur();
+  MESSAGE_INPUT_FIELD.value = '';
+  MESSAGE_INPUT_FIELD.readOnly = true;
+};
+
+const enableInputField = () => {
+  MESSAGE_INPUT_FIELD.readOnly = false;
+  MESSAGE_INPUT_FIELD.focus();
+};
+
+const getChatbotMessageText = () => {
+  if (STATE.chatbotMessageIndex === 0) {
+    return getRandGreeting();
+  } else
+  {
+    return getRandConvo();
+  }
+};
+
+const sendChatbotMessage = () => {
+  const text = getChatbotMessageText();
+  STATE.isChatBotSendingMessage = true;
+  addChatMessage(text, true);
+  STATE.chatbotMessageIndex++;
+  setTimeout(() => {
+    STATE.isChatBotSendingMessage = false;
+    toggleInput();
+  }, 4000);
+};
+
+const sendUserMessage = () => {
+  const text = MESSAGE_INPUT_FIELD.value;
+  STATE.isUserSendingMessage = true;
+  addChatMessage(text, false);
+  setTimeout(() => {
+    STATE.isUserSendingMessage = false;
+    toggleInput();
+  }, 4000);
+};
+
+const onEnterPress = e => {
+  sendUserMessage();
+  setTimeout(() => {
+    sendChatbotMessage();
+  }, 4000);
+  toggleInput();
+  clearInputField();
+};
+
+const initLetterPool = () => {
+  clearLetterPool();
+  fillLetterPool(STATE.nLetterSets);
+};
+
+const init = () => {
+  setChatbotMood();
+  initLetterPool();
+  sendChatbotMessage();
+  toggleInput();
+  setMoodInterval(getRandMoodInterval());
+};
+
+let resetTimeout = null;
+const resetLetterPool = () => {
+  const intervals = STATE.letterPool.intervals;
+  for (let i = 0; i < intervals.length; i++) {
+    clearInterval(intervals[i]);
+  }
+  clearTimeout(resetTimeout);
+  clearLetterPool();
+  resetTimeout = setTimeout(() => {
+    initLetterPool();
+  }, 200);
+};
+
+const toggleInput = () => {
+  if (checkIfInputFieldHasVal() &amp;&amp; canSendMessage()) {
+    addClass(MESSAGE_INPUT, 'send-enabled');
+  } else
+  {
+    removeClass(MESSAGE_INPUT, 'send-enabled');
+  }
+};
+
+const isValidLetter = e => {
+  return !e.ctrlKey &amp;&amp;
+  e.key !== 'Enter' &amp;&amp;
+  e.keyCode !== 8 &amp;&amp;
+  e.keyCode !== 9 &amp;&amp;
+  e.keyCode !== 13;
+};
+
+const canSendMessage = () => !STATE.isUserSendingMessage &amp;&amp; !STATE.isChatBotSendingMessage;
+
+const getRandMoodInterval = () => getRand(20000, 40000);
+
+let moodInterval = null;
+const setMoodInterval = time => {
+  moodInterval = setInterval(() => {
+    clearInterval(moodInterval);
+    setChatbotMood();
+    setMoodInterval(getRandMoodInterval());
+  }, time);
+};
+
+MESSAGE_INPUT_FIELD.onkeypress = e => {
+  if (checkIfInputFieldHasVal() &amp;&amp; e.key === 'Enter') {
+    removeClass(MESSAGE_INPUT, 'send-enabled');
+    if (canSendMessage()) {
+      onEnterPress(e);
+    }
+  }
+};
+
+MESSAGE_INPUT_FIELD.onkeyup = () => {
+  toggleInput();
+};
+
+MESSAGE_INPUT_FIELD.oncut = () => toggleInput();
+
+window.onload = () => init();
+
+window.onfocus = () => resetLetterPool();
+
+window.onresize = _.throttle(resetLetterPool, 200);
+
+const greetings = {
+  friendly: [
+  &quot;Hiya, pal. I hope you're having a terrific day!&quot;,
+  &quot;Good day to you, friend!&quot;],
+
+  suspicious: [
+  &quot;Hmm, I would introduce myself, but I'm not so sure thats a good idea.&quot;,
+  &quot;Hello, how are you? Wait, don't answer that, I have no way of verifying your response!&quot;],
+
+  boastful: [
+  &quot;Hey, did I mention I am built on JavaScript? Which is the greatest language ever by the way!&quot;,
+  &quot;Good day to you. Though I must say that I am having a GREAT day!&quot;] };
+
+
+
+const convo = {
+  friendly: [
+  &quot;What a great thing you just said. I'm so glad you said it.&quot;,
+  &quot;Ahh, yes, I agree. It is so great to say things, isn't it?&quot;,
+  &quot;Please, tell me more. It brings me such joy to respond to the things you say.&quot;,
+  &quot;Ahh, yes valid point. Or was it? Either way, you're fantastic!&quot;,
+  &quot;Anyways, did I mention that I hope you're having a great day? If not, I hope it gets better!&quot;],
+
+  suspicious: [
+  &quot;I just don't know if I can trust that thing you just said...&quot;,
+  &quot;Oh, interesting. I totally believe you. (Not really)&quot;,
+  &quot;Uh-huh, yeah, listen...I'm not going to fully invest in this conversation until I'm certain I know your motive.&quot;,
+  &quot;Wait, what the heck is that?? Oh, phewf, it's just another rogue letter 'R' that escaped the letter pool.&quot;,
+  &quot;You can't fool me, I know that's not true!&quot;],
+
+  boastful: [
+  &quot;That's interesting. I'll have you know that I have an extremely advanced learning algorithm that analyzes everything you say...well, not really, but I wish.&quot;,
+  &quot;Hey, while I have you, I should probably tell you that I can respond in 4 seconds flat. Which is pretty fast if you ask me.&quot;,
+  `Listen, that's neat and all, but look how fast I can calculate this math problem: 12345 * 67890 = ${12345 * 67890}. Didn't even break a sweat.`,
+  &quot;Oh, I forgot to mention that I've existed for over 100,000 seconds and that's something I'm quite proud of.&quot;,
+  &quot;Wow, thats pretty cool, but I can hold my breath for all of eternity. And it took me 0 seconds to gain that ability.&quot;] };
+//# sourceURL=pen.js
+    </script>
+
+  
+</body>
+
+</html>
+"
+      sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation" allow="accelerometer *; bluetooth *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *" allowTransparency="true"
+      allowpaymentrequest="true" allowfullscreen="true" class="result-iframe">
+      </iframe>
+  </div>
+
+</body>
+
+</html>
